@@ -110,8 +110,26 @@ class Sorting():
 
         pygame.display.update()
 
+    def selectionSort(self):
+        for i in range(len(self.list)):
+            min_idx = i
+            for j in range(i+1, len(self.list)):
+                if self.list[min_idx] > self.list[j]:
+                    min_idx = j
+                self.surface.fill(self.surfColor)
+                self.paint()
+                self.highlight(j)
+                self.highlight(min_idx)
+                self.highlight(i)
+                self.iterations += 1
+                pygame.time.delay(int(self.speed))
+
+                pygame.display.update()
+            self.list[i], self.list[min_idx] = self.list[min_idx], self.list[i]
+
 
     def highlight(self,i):
+        #print(self.list[i])
         pygame.draw.rect(self.surface, self.highlightColor, pygame.Rect(self.x + (self.size+self.space) * i, self.y-self.list[i], self.size, self.list[i]))
 
 

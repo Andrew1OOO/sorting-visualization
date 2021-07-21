@@ -29,10 +29,12 @@ sort = Sorting(list1,dis,50,480)
 bSortButton = pygame.Rect(60, 530, 100, 40)
 qSortButton = pygame.Rect(180, 530, 100, 40)
 iSortButton = pygame.Rect(300, 530, 100, 40)
+sSortButton = pygame.Rect(420, 530, 100, 40)
 
 bdraw = True
 qdraw = True
 idraw = True
+sdraw = True
 
 Font = pygame.freetype.SysFont('Sans', 16)
 
@@ -64,6 +66,9 @@ while not game_over:
             if event.key == pygame.K_c:
                 list1 = scramble(list1)
                 sort = Sorting(list1,dis,50,480)
+            if event.key == pygame.K_t:
+                print(len(list1))
+                
                 
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
@@ -77,6 +82,8 @@ while not game_over:
             if iSortButton.collidepoint(pos):
                 
                 idraw = False
+            if sSortButton.collidepoint(pos):
+                sdraw = False
         if event.type == pygame.MOUSEBUTTONUP:
             pos = pygame.mouse.get_pos()
             if bSortButton.collidepoint(pos):
@@ -88,6 +95,9 @@ while not game_over:
             if iSortButton.collidepoint(pos):
                 sort.insertionSort()
                 idraw = True
+            if sSortButton.collidepoint(pos):
+                sort.selectionSort()
+                sdraw = True
 
     sort.paint()
 
@@ -106,7 +116,10 @@ while not game_over:
         pygame.draw.rect(dis,(149, 48, 217),iSortButton)
     else:
         pygame.draw.rect(dis,(128, 38, 189),iSortButton)
-
+    if(sdraw):
+        pygame.draw.rect(dis,(149, 48, 217),sSortButton)
+    else:
+        pygame.draw.rect(dis,(128, 38, 189),sSortButton)
 
     
     bubble_rect = Font.get_rect("Bubble Sort")
@@ -130,6 +143,12 @@ while not game_over:
     insertion_rect.center = ((300+(100-iwidth)/2),(530+(40-iheight)/2))
     inserted = Font.render_to(dis, insertion_rect.center, "Insertion Sort", (0,0,0))
 
+
+    selec_rect = Font.get_rect("Selection Sort")
+    swidth = selec_rect.width
+    sheight = selec_rect.height
+    selec_rect.center = ((420+(100-swidth)/2),(530+(40-sheight)/2))
+    selected = Font.render_to(dis, selec_rect.center, "Selection Sort", (0,0,0))
 
     pygame.display.update()
     pygame.display.flip()
